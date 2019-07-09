@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head><meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>NBA Team Roster</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <script src="./handlebars/dist/handlebars.js"></script>
+</head>
+
+<body>
+    <input type="text" id="team-input" placeholder="Choose a team">
+    <button onclick=fetchTeamData()>GET ROSTER</button>
+    <div id="container">
+        <div id="players-container"></div>
+    </div>
+    <script src="./jquery/dist/jquery.js"></script>
+    <script id="players-template" type="text/x-handlebars-template">
+        {{#each response}}
+        <div class="player">
+            <p>{{firstName}} {{lastName}}</p>
+            <p>{{jersey}}</p>
+            <img src="{{img}}">
+            <p>{{pos}}</p>
+            </div>
+        {{/each}}
+        </script>
+
+    <script src="renderer.js"></script>  
+    <script src="main.js"></script>
+</body>
+
+</html>
+
+
