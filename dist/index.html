@@ -4,13 +4,14 @@
 <head><meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>NBA Team Roster</title>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <script src="./handlebars/dist/handlebars.js"></script>
 </head>
 
 <body>
     <input type="text" id="team-input" placeholder="Choose a team">
-    <button onclick=fetchTeamData()>GET ROSTER</button>
+    <button onclick=controler.fetchTeamData()>GET ROSTER</button>
     <div id="container">
         <div id="players-container"></div>
     </div>
@@ -18,13 +19,23 @@
     <script id="players-template" type="text/x-handlebars-template">
         {{#each response}}
         <div class="player">
-            <p>{{firstName}} {{lastName}}</p>
-            <p>{{jersey}}</p>
-            <img src="{{img}}">
-            <p>{{pos}}</p>
+            <p class="player-name">{{firstName}} {{lastName}}</p>
+            <p>Jersey: {{jersey}}</p>
+            <div class="img-con" id={{jersey}}>
+                <img  class="img" src="{{img}}">
+            </div>
+            <p>Pos: {{pos}}</p>
             </div>
         {{/each}}
         </script>
+
+        <script id="stats-template" type="text/x-handlebars-template">
+            <div class="stats">
+                <p>Games Played: {{games_played}}</p>
+                <p>Minutes Per Game: {{minutes_per_game}}</p>
+                <p>Points Per Game: {{points_per_game}}</p>
+            </div>
+            </script>
 
     <script src="renderer.js"></script>  
     <script src="main.js"></script>
