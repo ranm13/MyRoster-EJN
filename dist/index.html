@@ -4,38 +4,87 @@
 <head><meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>NBA Team Roster</title>
-    <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker|Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="http://icons.iconarchive.com/icons/chrisbanks2/cold-fusion-hd/128/nba-icon.png">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
-    <script src="./handlebars/dist/handlebars.js"></script>
 </head>
 
 <body>
-    <input type="text" id="team-input" placeholder="Choose a team">
-    <button onclick=controler.fetchTeamData()>GET ROSTER</button>
     <div id="container">
+    <header>
+       
+        <span id="headline">
+             <img id="nba-logo" src="http://icons.iconarchive.com/icons/chrisbanks2/cold-fusion-hd/128/nba-icon.png" alt="NBA Logo">
+            NBA ROSTER
+        </span>
+        <div id="search-bar">
+            <input type="text" id="team-input" placeholder="Choose a team">
+            <button id="search-button" onclick=controler.fetchTeamData()>GET ROSTER</button>
+            <button id="dream-team" onclick=controler.fetchDreamTeam()>GET DREAM TEAM</button>
+        </div>
+    </header>
         <div id="players-container"></div>
     </div>
+    <script src="./handlebars/dist/handlebars.js"></script>
     <script src="./jquery/dist/jquery.js"></script>
     <script id="players-template" type="text/x-handlebars-template">
         {{#each response}}
-        <div class="player">
-            <p class="player-name">{{firstName}} {{lastName}}</p>
-            <p>Jersey: {{jersey}}</p>
-            <div class="img-con" id={{jersey}}>
-                <img  class="img" src="{{img}}">
+        <div class="player" id="{{id}}">  
+            <div>
+                <div class="player-details">
+                    <div class="jersey">No. {{jersey}}</div>
+                    <button class="get-stats">STATS</button>
+                </div> 
+                <div class="player-details"> 
+                    <div class="pos">Pos: {{pos}}</div>
+                    <button class="add-to-dream-team">Add to Dream team</button>
+                </div>    
             </div>
-            <p>Pos: {{pos}}</p>
-            </div>
+            <img class="img" src="{{img}}" 
+            alt="Player's image" onerror="this.src='lebronJ.png';">
+            <div class="player-name">{{firstName}} {{lastName}}</div> 
+        </div>
         {{/each}}
         </script>
 
-        <script id="stats-template" type="text/x-handlebars-template">
-            <div class="stats">
-                <p>Games Played: {{games_played}}</p>
-                <p>Minutes Per Game: {{minutes_per_game}}</p>
-                <p>Points Per Game: {{points_per_game}}</p>
+        <script id='stats-template' type='text/x-handlebars-template'>
+            <div class="stats-container">
+              <div class='player-intro'>
+                   <img class='img-stats' src="{{img}}" onerror="this.src='lebronJ.png';"> 
+                   <span class='player-name-stat'>{{playerName}}</span>
+              </div>
+              <table class="player-stats">
+                  <tr>
+                      <th></th>
+                      <th class="small">Per Game</th>
+                  </tr>
+                  <tr>
+                      <th>Minutes:</th>
+                      <th class="num">{{minutesPerGame}}</th>
+                  </tr>
+                  <tr>
+                      <th>Points:</th>
+                      <th class="num">{{pointsPerGame}}</th>
+                  </tr>
+                  <tr>
+                      <th>Rebounds:</th>
+                      <th class="num">{{reboundsPerGame}}</th>
+                  </tr>
+                  <tr>
+                      <th>Assists:</th>
+                      <th class="num">{{assistsPerGame}}</th>
+                  </tr>
+                  <tr>
+                      <th>Steals:</th>
+                      <th class="num">{{stealsPerGame}}</th>
+                  </tr>
+                  <tr>
+                      <th>Blocks:</th>
+                      <th class="num">{{blocksPerGame}}</th>
+                  </tr>
+              </table>
             </div>
-            </script>
+          </script>
 
     <script src="renderer.js"></script>  
     <script src="main.js"></script>
